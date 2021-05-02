@@ -8,19 +8,24 @@
 <script>
 import DetailNavBar from "./childComps/DetailNavBar";
 import DetailSwiper from "./childComps/DetailSwiper";
+import DetailBaseInfo from "./childComps/DetailBaseInfo";
+import DetailShopInfo from "./childComps/DetailShopInfo";
 
-import {getDetail} from "network/detail";
+import {getDetail,Goods} from "network/detail";
 
 export default {
   name: "Detail",
   components:{
     DetailNavBar,
-    DetailSwiper
+    DetailSwiper,
+    DetailBaseInfo,
+    DetailShopInfo
   },
   data(){
     return{
       iid:null,
-      topImages:[]
+      topImages:[],
+      goods:null
     }
   },
   created() {
@@ -28,9 +33,11 @@ export default {
     this.iid = this.$route.params.iid
     //2.根据iid请求详细数据
     getDetail(this.iid).then(res => {
-      this.topImages = res.result.itemInfo.topImages
-    })
-  },
+      const data = res.result
+      this.topImages = data.itemInfo.topImages
+    }),
+    this.goods = new Goods(data.itemInfo,data.columns,data.shopInfo.services)
+  }
 }
 </script>
 
