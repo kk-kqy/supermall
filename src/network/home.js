@@ -2,14 +2,15 @@ import {request} from "./request";
 
 export function getHomeMultidata(){
   return request({
-    url: '/home/multidata'
+    url: '/api/home/multiple'
   })
 }
-export function getHomeGoods(type,page){
+
+export function getHomeGoods(sort,page){
   return request({
-    url: '/home/data',
+    url: '/api/home/data',
     params:{
-      type,
+      sort,
       page
     }
   })

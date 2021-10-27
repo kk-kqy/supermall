@@ -86,7 +86,7 @@
       }
     },
     created() {
-      //1.请求多个数据
+      // //1.请求多个数据
       this.getHomeMultidata()
       //2.请求商品数据
       this.getHomeGoods('pop')
@@ -144,14 +144,16 @@
       // network
       getHomeMultidata() {
         getHomeMultidata().then(res => {
-          this.banner = res.data.banner.list;
-          this.recommend = res.data.recommend.list;
+          console.log(res.data);
+          this.banner = res.data.banner;
+          this.recommend = res.data.recommend;
         })
       },
       getHomeGoods(type) {
         const page = this.goods[type].page + 1;
         getHomeGoods(type,page).then(res => {
-          this.goods[type].list.push(...res.data.list);
+          console.log(res.result.wall.list)
+          this.goods[type].list.push(...res.result.wall.list);
           this.goods[type].page += 1
 
           this.$refs.scroll.finishPullUp()
